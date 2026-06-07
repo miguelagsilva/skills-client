@@ -18,6 +18,8 @@ public class ModuleManager {
         registerModule(new MoonModule());
         registerModule(new StepModule());
         registerModule(new SpiderModule());
+        registerModule(new SlowPhasingModule());
+        registerModule(new FreecamModule());
     }
 
     void registerModule(AbstractModule module) {

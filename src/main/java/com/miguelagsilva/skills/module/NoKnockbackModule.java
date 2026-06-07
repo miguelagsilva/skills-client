@@ -11,7 +11,7 @@ public class NoKnockbackModule extends AbstractModule {
     }
 
     @Subscribe
-    public void outPacket(PacketEvent.Receive event) {
+    public void inPacket(PacketEvent.Receive event) {
         if (event.getPacket() instanceof EntityVelocityUpdateS2CPacket) {
             event.setCancelled(true);
         }
