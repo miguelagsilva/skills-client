@@ -10,6 +10,7 @@ public class ModuleManager {
 
     public ModuleManager() {
         registerModule(new NoFallModule());
+        registerModule(new NoKnockbackModule());
         registerModule(new AutoSprintModule());
         registerModule(new ClickGUIModule());
         registerModule(new CapeModule());
