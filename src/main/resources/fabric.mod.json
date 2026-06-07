@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "skills",
+  "version": "${version}",
+  "name": "skills",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/skills/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "com.miguelagsilva.skills.client.SkillsDataGenerator"
+    ],
+    "client": [
+      "com.miguelagsilva.skills.client.SkillsClient"
+    ]
+  },
+  "mixins": [
+    "skills.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
