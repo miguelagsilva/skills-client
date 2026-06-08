@@ -10,6 +10,7 @@ public class Button {
     private Runnable onClick;
     private Window window;
     private int offsetX, offsetY, width, height;
+    protected static final int buttonHeight = 15;
 
     public Button(
             String label,
@@ -42,15 +43,15 @@ public class Button {
 
         context.fill(
                 window.getX() + offsetX,
-                window.getY() + offsetY,
+                window.getY() + offsetY - window.getScrollOffset(),
                 window.getX() + offsetX + width,
-                window.getY() + offsetY + height,
+                window.getY() + offsetY + height - window.getScrollOffset(),
                 bgColor);
         context.drawTextWithShadow(
                 textRenderer,
                 label,
                 window.getX() + offsetX + 5,
-                window.getY() + offsetY + 4,
+                window.getY() + offsetY + 4 - window.getScrollOffset(),
                 Color.WHITE.getRGB());
     }
 

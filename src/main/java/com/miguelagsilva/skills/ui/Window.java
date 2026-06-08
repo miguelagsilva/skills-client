@@ -5,17 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import org.joml.Matrix3x2fStack;
+
+import static com.miguelagsilva.skills.ui.Button.buttonHeight;
 
 public class Window {
     private final List<Button> buttons = new ArrayList<>();
 
-    private final double UI_SCALE = 0.5;
-
     private final String title;
     private int x;
     private int y;
-    private final int width = 120;
-    private final int height = 100;
+    private int scrollOffset = 0;
+    protected static final int windowWidth = (int) 120;
+    protected static final int windowHeight = (int) 100;
+    protected static final float titleScale = 1.0f;
+    protected static final int titleSectionHeight = 15;
+    protected static final int buttonSectionHeight = windowHeight - titleSectionHeight;
 
     public Window(String title, int x, int y) {
         this.title = title;
@@ -24,16 +29,23 @@ public class Window {
     }
 
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        context.fill(x, y, x + width, y + height, 0x80222222);
-        context.drawTextWithShadow(textRenderer, title, x + 5, y + 4, Color.WHITE.getRGB());
+        context.fill(x, y, x + windowWidth, y + windowHeight, 0x80222222);
+
+        Matrix3x2fStack matrix = context.getMatrices().pushMatrix();
+        context.getMatrices().scale(titleScale, titleScale, matrix);
+        context.drawTextWithShadow(textRenderer, title, x + 4, y + 4, Color.WHITE.getRGB());
+        context.getMatrices().popMatrix();
+
         renderButtons(context, textRenderer, mouseX, mouseY);
     }
 
     public void renderButtons(
             DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
+        context.enableScissor(this.x, this.y + buttonHeight, this.x + windowWidth, this.y + windowHeight);
         for (Button button : buttons) {
             button.render(context, textRenderer, mouseX, mouseY);
         }
+        context.disableScissor();
     }
 
     public void addButton(Button button) {
@@ -60,19 +72,30 @@ public class Window {
         this.y = y;
     }
 
-    public int getWidth() {
-        return width;
+    public int getWindowWidth() {
+        return windowWidth;
     }
 
     public int getHeight() {
-        return height;
+        return windowHeight;
     }
 
     public boolean checkInside(int posX, int posY) {
-        return posX >= x && posX <= x + width && posY >= y && posY <= y + height;
+        return posX >= x && posX <= x + windowWidth && posY >= y && posY <= y + windowHeight;
     }
 
     public List<Button> getButtons() {
         return buttons;
+    }
+
+    public void setScrollOffset(int offset) {
+        int maxScroll = Math.max(0, buttons.size() * buttonHeight - buttonSectionHeight);
+        if (offset <= 0) offset = 0;
+        else if (offset > maxScroll) offset = maxScroll;
+        this.scrollOffset = offset;
+    }
+
+    public int getScrollOffset() {
+        return this.scrollOffset;
     }
 }

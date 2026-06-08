@@ -39,17 +39,5 @@ public class SlowPhasingModule extends AbstractModule {
                         client.player.isOnGround(),
                         false);
         client.getNetworkHandler().sendPacket(movePacket);
-
-        // print all values
-        System.out.printf(
-                "Sent move packet: X=%.10f, Y=%.2f, Z=%.10f, Yaw=%.2f, Pitch=%.2f, OnGround=%b, moveX=%.10f, moveZ=%.10f\n",
-                client.player.getX() + moveX,
-                client.player.getY(),
-                client.player.getZ() + moveZ,
-                client.player.getYaw(),
-                client.player.getPitch(),
-                client.player.isOnGround(),
-                moveX,
-                moveZ);
     }
 }
