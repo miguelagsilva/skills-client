@@ -1,14 +1,16 @@
-package com.miguelagsilva.skills.module;
+package com.miguelagsilva.skills.module.movement;
 
 import com.google.common.eventbus.Subscribe;
 import com.miguelagsilva.skills.event.TickEvent;
+import com.miguelagsilva.skills.module.AbstractModule;
+import com.miguelagsilva.skills.module.ModuleCategory;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public class SlowPhasingModule extends AbstractModule {
     private final int PACKET_TICK_INTERVAL = 2;
     private int tickCounter = 0;
 
-    protected SlowPhasingModule() {
+    public SlowPhasingModule() {
         super(
                 "SlowPhasing",
                 "Slowly moves in looking direction bypasses protection",

@@ -1,11 +1,13 @@
-package com.miguelagsilva.skills.module;
+package com.miguelagsilva.skills.module.movement;
 
 import com.google.common.eventbus.Subscribe;
 import com.miguelagsilva.skills.event.TickEvent;
+import com.miguelagsilva.skills.module.AbstractModule;
+import com.miguelagsilva.skills.module.ModuleCategory;
 import org.lwjgl.glfw.GLFW;
 
 public class SpiderModule extends AbstractModule {
-    protected SpiderModule() {
+    public SpiderModule() {
         super("Spider", "Climbs walls", ModuleCategory.MOVEMENT, GLFW.GLFW_KEY_V);
     }
 

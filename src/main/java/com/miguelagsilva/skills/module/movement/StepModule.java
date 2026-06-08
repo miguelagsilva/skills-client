@@ -1,11 +1,13 @@
-package com.miguelagsilva.skills.module;
+package com.miguelagsilva.skills.module.movement;
 
+import com.miguelagsilva.skills.module.AbstractModule;
+import com.miguelagsilva.skills.module.ModuleCategory;
 import net.minecraft.entity.attribute.EntityAttributes;
 
 public class StepModule extends AbstractModule {
     private double stepHeight = 1.5;
 
-    protected StepModule() {
+    public StepModule() {
         super("Step", "Increases step height of player", ModuleCategory.MOVEMENT);
     }
 

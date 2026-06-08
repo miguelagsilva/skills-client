@@ -1,13 +1,14 @@
-package com.miguelagsilva.skills.module;
+package com.miguelagsilva.skills.module.render;
 
 import com.google.common.eventbus.Subscribe;
 import com.miguelagsilva.skills.event.PacketEvent;
+import com.miguelagsilva.skills.module.AbstractModule;
+import com.miguelagsilva.skills.module.ModuleCategory;
+import java.util.UUID;
 import net.minecraft.client.network.OtherClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.packet.c2s.play.*;
 import net.minecraft.util.math.Vec3d;
-
-import java.util.UUID;
 
 public class FreecamModule extends AbstractModule {
     private double x;
@@ -19,7 +20,7 @@ public class FreecamModule extends AbstractModule {
 
     private static final int DUMMY_ENTITY_ID = -67;
 
-    protected FreecamModule() {
+    public FreecamModule() {
         super("Freecam", "Move your camera freely", ModuleCategory.RENDER);
     }
 

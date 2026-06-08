@@ -1,5 +1,7 @@
-package com.miguelagsilva.skills.module;
+package com.miguelagsilva.skills.module.misc;
 
+import com.miguelagsilva.skills.module.AbstractModule;
+import com.miguelagsilva.skills.module.ModuleCategory;
 import com.miguelagsilva.skills.ui.ClickGUIScreen;
 import org.lwjgl.glfw.GLFW;
 

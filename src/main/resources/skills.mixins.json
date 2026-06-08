@@ -15,6 +15,7 @@
   },
   "client": [
     "CapeFeatureRendererMixin",
+    "EntityRendererMixin",
     "KeyboardMixin",
     "LightMapTextureManagerMixin",
     "MinecraftClientMixin",

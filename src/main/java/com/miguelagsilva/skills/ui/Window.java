@@ -1,13 +1,13 @@
 package com.miguelagsilva.skills.ui;
 
+import static com.miguelagsilva.skills.ui.Button.buttonHeight;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import org.joml.Matrix3x2fStack;
-
-import static com.miguelagsilva.skills.ui.Button.buttonHeight;
 
 public class Window {
     private final List<Button> buttons = new ArrayList<>();
@@ -41,7 +41,8 @@ public class Window {
 
     public void renderButtons(
             DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        context.enableScissor(this.x, this.y + buttonHeight, this.x + windowWidth, this.y + windowHeight);
+        context.enableScissor(
+                this.x, this.y + buttonHeight, this.x + windowWidth, this.y + windowHeight);
         for (Button button : buttons) {
             button.render(context, textRenderer, mouseX, mouseY);
         }

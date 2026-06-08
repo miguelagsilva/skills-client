@@ -1,10 +1,12 @@
-package com.miguelagsilva.skills.module;
+package com.miguelagsilva.skills.module.movement;
 
 import com.google.common.eventbus.Subscribe;
 import com.miguelagsilva.skills.event.TickEvent;
+import com.miguelagsilva.skills.module.AbstractModule;
+import com.miguelagsilva.skills.module.ModuleCategory;
 
 public class AutoSprintModule extends AbstractModule {
-    protected AutoSprintModule() {
+    public AutoSprintModule() {
         super("AutoSprint", "Run forest run", ModuleCategory.MOVEMENT);
     }
 

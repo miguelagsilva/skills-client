@@ -1,7 +1,10 @@
-package com.miguelagsilva.skills.module;
+package com.miguelagsilva.skills.module.movement;
 
-public class FlightModule extends AbstractModule{
-    FlightModule(){
+import com.miguelagsilva.skills.module.AbstractModule;
+import com.miguelagsilva.skills.module.ModuleCategory;
+
+public class FlightModule extends AbstractModule {
+    public FlightModule() {
         super("Flight", "Allows you to fly", ModuleCategory.MOVEMENT);
     }
 

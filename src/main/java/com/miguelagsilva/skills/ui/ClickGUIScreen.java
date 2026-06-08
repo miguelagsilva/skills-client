@@ -1,13 +1,14 @@
 package com.miguelagsilva.skills.ui;
 
+import static com.miguelagsilva.skills.ui.Button.buttonHeight;
+import static com.miguelagsilva.skills.ui.Window.titleSectionHeight;
+
 import com.miguelagsilva.skills.client.SkillsClient;
 import com.miguelagsilva.skills.module.AbstractModule;
 import com.miguelagsilva.skills.module.ModuleCategory;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -17,9 +18,6 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
 import org.joml.Matrix3x2fStack;
 import org.slf4j.Logger;
-
-import static com.miguelagsilva.skills.ui.Button.buttonHeight;
-import static com.miguelagsilva.skills.ui.Window.titleSectionHeight;
 
 public class ClickGUIScreen extends Screen {
     private final Logger logger = SkillsClient.Logger;
@@ -145,11 +143,13 @@ public class ClickGUIScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+    public boolean mouseScrolled(
+            double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if (dragWindow == null) {
             for (Window window : windows.values()) {
                 if (window.checkInside((int) mouseX, (int) mouseY)) {
-                    window.setScrollOffset((int) (window.getScrollOffset()-(verticalAmount)*10));
+                    window.setScrollOffset(
+                            (int) (window.getScrollOffset() - (verticalAmount) * 10));
                     return true;
                 }
             }

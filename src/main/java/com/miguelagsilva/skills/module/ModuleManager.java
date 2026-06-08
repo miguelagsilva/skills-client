@@ -1,12 +1,20 @@
 package com.miguelagsilva.skills.module;
 
+import com.miguelagsilva.skills.module.combat.NoKnockbackModule;
+import com.miguelagsilva.skills.module.misc.ClickGUIModule;
+import com.miguelagsilva.skills.module.movement.*;
+import com.miguelagsilva.skills.module.player.CapeModule;
+import com.miguelagsilva.skills.module.player.NoHandSwingModule;
+import com.miguelagsilva.skills.module.render.EntityESPModule;
+import com.miguelagsilva.skills.module.render.FreecamModule;
+import com.miguelagsilva.skills.module.render.FullBrightModule;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ModuleManager {
-    private Map<String, AbstractModule> modules = new HashMap<>();
+    private final Map<String, AbstractModule> modules = new HashMap<>();
 
     public ModuleManager() {
         registerModule(new NoFallModule());
@@ -22,6 +30,7 @@ public class ModuleManager {
         registerModule(new FreecamModule());
         registerModule(new FlightModule());
         registerModule(new NoHandSwingModule());
+        registerModule(new EntityESPModule());
     }
 
     void registerModule(AbstractModule module) {

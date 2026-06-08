@@ -1,15 +1,17 @@
-package com.miguelagsilva.skills.module;
+package com.miguelagsilva.skills.module.movement;
 
 import com.google.common.eventbus.Subscribe;
 import com.miguelagsilva.skills.accessor.PlayerMoveC2SAccessor;
 import com.miguelagsilva.skills.event.PacketEvent;
+import com.miguelagsilva.skills.module.AbstractModule;
+import com.miguelagsilva.skills.module.ModuleCategory;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 
 public class NoFallModule extends AbstractModule {
-    protected NoFallModule() {
+    public NoFallModule() {
         super("NoFall", "No more fall damage", ModuleCategory.MOVEMENT);
     }
 
