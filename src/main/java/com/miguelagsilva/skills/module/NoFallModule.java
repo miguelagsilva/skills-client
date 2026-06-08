@@ -18,8 +18,6 @@ public class NoFallModule extends AbstractModule {
         if (client.player == null) return;
         if (event.getPacket() instanceof PlayerMoveC2SPacket playerMoveC2SPacket) {
             if (client.player.fallDistance > 3.0f && client.player.getVelocity().y < -0.5) {
-                ((PlayerMoveC2SAccessor) playerMoveC2SPacket).setOnGround(true);
-                System.out.println("PlayerMoveC2SPacket detected, checking for fall damage...");
                 Vec3d velocity = client.player.getVelocity();
 
                 if (velocity.y >= 0) return;

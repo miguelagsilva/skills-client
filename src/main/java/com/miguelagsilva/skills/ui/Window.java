@@ -9,6 +9,8 @@ import net.minecraft.client.gui.DrawContext;
 public class Window {
     private final List<Button> buttons = new ArrayList<>();
 
+    private final double UI_SCALE = 0.5;
+
     private final String title;
     private int x;
     private int y;

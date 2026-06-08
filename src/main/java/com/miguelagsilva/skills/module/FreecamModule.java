@@ -64,8 +64,6 @@ public class FreecamModule extends AbstractModule {
                 || event.getPacket() instanceof HandSwingC2SPacket
                 || event.getPacket() instanceof PlayerInteractEntityC2SPacket) {
             event.setCancelled(true);
-        } else {
-            System.out.printf("Packet sent: %s%n", event.getPacket().getClass().getSimpleName());
         }
     }
 }

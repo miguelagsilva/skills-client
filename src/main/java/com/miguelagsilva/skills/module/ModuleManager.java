@@ -20,6 +20,8 @@ public class ModuleManager {
         registerModule(new SpiderModule());
         registerModule(new SlowPhasingModule());
         registerModule(new FreecamModule());
+        registerModule(new FlightModule());
+        registerModule(new NoHandSwingModule());
     }
 
     void registerModule(AbstractModule module) {
