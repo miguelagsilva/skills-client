@@ -1,13 +1,16 @@
 package com.miguelagsilva.skills.module;
 
 import com.miguelagsilva.skills.module.combat.NoKnockbackModule;
+import com.miguelagsilva.skills.module.misc.BlinkModule;
 import com.miguelagsilva.skills.module.misc.ClickGUIModule;
 import com.miguelagsilva.skills.module.movement.*;
 import com.miguelagsilva.skills.module.player.CapeModule;
 import com.miguelagsilva.skills.module.player.NoHandSwingModule;
-import com.miguelagsilva.skills.module.render.EntityESPModule;
+import com.miguelagsilva.skills.module.render.EntityESP2DModule;
 import com.miguelagsilva.skills.module.render.FreecamModule;
 import com.miguelagsilva.skills.module.render.FullBrightModule;
+import com.miguelagsilva.skills.module.render.PlayerESPModule;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +33,9 @@ public class ModuleManager {
         registerModule(new FreecamModule());
         registerModule(new FlightModule());
         registerModule(new NoHandSwingModule());
-        registerModule(new EntityESPModule());
+        registerModule(new EntityESP2DModule());
+        registerModule(new BlinkModule());
+        registerModule(new PlayerESPModule());
     }
 
     void registerModule(AbstractModule module) {

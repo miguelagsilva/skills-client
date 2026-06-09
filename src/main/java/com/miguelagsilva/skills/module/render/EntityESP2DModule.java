@@ -3,6 +3,7 @@ package com.miguelagsilva.skills.module.render;
 import com.miguelagsilva.skills.module.AbstractModule;
 import com.miguelagsilva.skills.module.ModuleCategory;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldExtractionContext;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.gui.DrawContext;
@@ -12,13 +13,13 @@ import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
-public class EntityESPModule extends AbstractModule {
+public class EntityESP2DModule extends AbstractModule {
 
     private volatile Matrix4f cachedViewProj = null;
     private volatile Vec3d cachedCamPos = null;
 
-    public EntityESPModule() {
-        super("EntityESP", "Shows entities through walls", ModuleCategory.RENDER);
+    public EntityESP2DModule() {
+        super("EntityESP2D", "Shows entities through walls, drawn on 2D", ModuleCategory.RENDER);
         WorldRenderEvents.END_EXTRACTION.register(this::onExtract);
         HudRenderCallback.EVENT.register(this::onHudRender);
     }
