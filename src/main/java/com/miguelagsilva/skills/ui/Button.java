@@ -1,6 +1,6 @@
 package com.miguelagsilva.skills.ui;
 
-import com.miguelagsilva.skills.client.SkillsClient;
+import com.miguelagsilva.skills.SkillsClient;
 import java.awt.*;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;

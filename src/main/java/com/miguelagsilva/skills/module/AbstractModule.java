@@ -1,6 +1,6 @@
 package com.miguelagsilva.skills.module;
 
-import com.miguelagsilva.skills.client.SkillsClient;
+import com.miguelagsilva.skills.SkillsClient;
 import net.minecraft.client.MinecraftClient;
 import org.lwjgl.glfw.GLFW;
 

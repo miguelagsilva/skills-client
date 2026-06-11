@@ -1,6 +1,6 @@
 package com.miguelagsilva.skills.mixin;
 
-import com.miguelagsilva.skills.client.SkillsClient;
+import com.miguelagsilva.skills.SkillsClient;
 import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.entity.Entity;

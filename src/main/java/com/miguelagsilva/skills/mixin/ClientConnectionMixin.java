@@ -1,6 +1,6 @@
 package com.miguelagsilva.skills.mixin;
 
-import com.miguelagsilva.skills.client.SkillsClient;
+import com.miguelagsilva.skills.SkillsClient;
 import com.miguelagsilva.skills.event.PacketEvent;
 import io.netty.channel.ChannelFutureListener;
 import net.minecraft.network.ClientConnection;

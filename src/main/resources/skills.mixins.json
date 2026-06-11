@@ -3,10 +3,6 @@
   "minVersion": "0.8",
   "package": "com.miguelagsilva.skills.mixin",
   "compatibilityLevel": "JAVA_25",
-  "mixins": [
-    "ClientConnectionMixin",
-    "PlayerMoveC2SPacketMixin"
-  ],
   "injectors": {
     "defaultRequire": 1
   },
@@ -14,6 +10,8 @@
     "requireAnnotations": true
   },
   "client": [
+    "ClientConnectionMixin",
+    "PlayerMoveC2SPacketMixin",
     "CapeFeatureRendererMixin",
     "EntityRendererMixin",
     "KeyboardMixin",

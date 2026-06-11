@@ -3,7 +3,6 @@ package com.miguelagsilva.skills.module.render;
 import com.miguelagsilva.skills.module.AbstractModule;
 import com.miguelagsilva.skills.module.ModuleCategory;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldExtractionContext;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.gui.DrawContext;
@@ -46,7 +45,11 @@ public class EntityESP2DModule extends AbstractModule {
 
             float[] feet =
                     worldToScreen(
-                            cachedViewProj, (float) pos.x, (float) pos.y, (float) pos.z, screenW,
+                            cachedViewProj,
+                            (float) pos.x,
+                            (float) pos.y,
+                            (float) pos.z,
+                            screenW,
                             screenH);
             float[] head =
                     worldToScreen(

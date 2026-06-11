@@ -7,6 +7,4 @@ public class PlayerESPModule extends AbstractModule {
     public PlayerESPModule() {
         super("PlayerESP", "Sees players through walls", ModuleCategory.RENDER);
     }
-
-
 }

@@ -1,6 +1,6 @@
 package com.miguelagsilva.skills.mixin;
 
-import com.miguelagsilva.skills.client.SkillsClient;
+import com.miguelagsilva.skills.SkillsClient;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.feature.CapeFeatureRenderer;
 import net.minecraft.client.render.entity.state.PlayerEntityRenderState;

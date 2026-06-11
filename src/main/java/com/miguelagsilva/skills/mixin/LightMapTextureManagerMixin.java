@@ -1,6 +1,6 @@
 package com.miguelagsilva.skills.mixin;
 
-import com.miguelagsilva.skills.client.SkillsClient;
+import com.miguelagsilva.skills.SkillsClient;
 import net.minecraft.client.render.LightmapTextureManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

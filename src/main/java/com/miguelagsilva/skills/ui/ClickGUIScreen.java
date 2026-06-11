@@ -3,7 +3,7 @@ package com.miguelagsilva.skills.ui;
 import static com.miguelagsilva.skills.ui.Button.buttonHeight;
 import static com.miguelagsilva.skills.ui.Window.titleSectionHeight;
 
-import com.miguelagsilva.skills.client.SkillsClient;
+import com.miguelagsilva.skills.SkillsClient;
 import com.miguelagsilva.skills.module.AbstractModule;
 import com.miguelagsilva.skills.module.ModuleCategory;
 import java.util.HashMap;

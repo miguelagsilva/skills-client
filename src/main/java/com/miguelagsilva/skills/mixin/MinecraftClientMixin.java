@@ -1,6 +1,6 @@
 package com.miguelagsilva.skills.mixin;
 
-import com.miguelagsilva.skills.client.SkillsClient;
+import com.miguelagsilva.skills.SkillsClient;
 import com.miguelagsilva.skills.event.TickEvent;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;

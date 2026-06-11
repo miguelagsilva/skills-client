@@ -1,6 +1,6 @@
 package com.miguelagsilva.skills.mixin;
 
-import com.miguelagsilva.skills.client.SkillsClient;
+import com.miguelagsilva.skills.SkillsClient;
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.input.KeyInput;
 import org.lwjgl.glfw.GLFW;

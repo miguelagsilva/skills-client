@@ -10,11 +10,8 @@
   "icon": "assets/skills/icon.png",
   "environment": "client",
   "entrypoints": {
-    "fabric-datagen": [
-      "com.miguelagsilva.skills.client.SkillsDataGenerator"
-    ],
     "client": [
-      "com.miguelagsilva.skills.client.SkillsClient"
+      "com.miguelagsilva.skills.SkillsClient"
     ]
   },
   "mixins": [

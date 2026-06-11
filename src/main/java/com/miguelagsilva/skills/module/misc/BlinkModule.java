@@ -1,19 +1,12 @@
 package com.miguelagsilva.skills.module.misc;
 
 import com.google.common.eventbus.Subscribe;
-import com.miguelagsilva.skills.client.SkillsClient;
 import com.miguelagsilva.skills.event.PacketEvent;
 import com.miguelagsilva.skills.module.AbstractModule;
 import com.miguelagsilva.skills.module.ModuleCategory;
-import net.minecraft.network.packet.c2s.common.CommonPongC2SPacket;
-import net.minecraft.network.packet.c2s.common.KeepAliveC2SPacket;
-import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
-import net.minecraft.network.packet.c2s.play.ClientTickEndC2SPacket;
-
+import java.util.*;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
-
-import java.util.*;
 
 public class BlinkModule extends AbstractModule {
     private long lastBlink;
@@ -23,8 +16,8 @@ public class BlinkModule extends AbstractModule {
 
     public BlinkModule() {
         super("Blink", "Fakes laggy movement", ModuleCategory.MISC);
-        ClientPlayConnectionEvents.DISCONNECT.register((handler,client) -> onServerDisconnect());
-        }
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> onServerDisconnect());
+    }
 
     @Override
     public void onEnable() {
@@ -38,7 +31,8 @@ public class BlinkModule extends AbstractModule {
 
     @Subscribe
     public void outPacket(PacketEvent.Send event) {
-        if (client.world == null || client.player == null || client.getNetworkHandler() == null) return;
+        if (client.world == null || client.player == null || client.getNetworkHandler() == null)
+            return;
         if (!(event.getPacket() instanceof PlayerMoveC2SPacket move)) return;
 
         if (System.currentTimeMillis() - lastBlink >= BLINK_INTERVAL_MS) {
