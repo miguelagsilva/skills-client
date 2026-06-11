@@ -3,7 +3,7 @@ package com.miguelagsilva.skills.module;
 import com.miguelagsilva.skills.module.combat.NoKnockbackModule;
 import com.miguelagsilva.skills.module.misc.BlinkModule;
 import com.miguelagsilva.skills.module.misc.ClickGUIModule;
-import com.miguelagsilva.skills.module.misc.FakeEnchantModule;
+import com.miguelagsilva.skills.module.misc.EnchantModule;
 import com.miguelagsilva.skills.module.movement.*;
 import com.miguelagsilva.skills.module.player.CapeModule;
 import com.miguelagsilva.skills.module.player.NoHandSwingModule;
@@ -36,7 +36,7 @@ public class ModuleManager {
         registerModule(new EntityESP2DModule());
         registerModule(new BlinkModule());
         registerModule(new PlayerESPModule());
-        registerModule(new FakeEnchantModule());
+        registerModule(new EnchantModule());
     }
 
     void registerModule(AbstractModule module) {
