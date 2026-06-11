@@ -1,89 +1,53 @@
 package com.miguelagsilva.skills.ui;
 
-import com.miguelagsilva.skills.SkillsClient;
-import java.awt.*;
+import java.awt.Color;
+import java.util.function.Supplier;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 
 public class Button {
-    private String label;
-    private Runnable onClick;
-    private Window window;
-    private int offsetX, offsetY, width, height;
-    protected static final int buttonHeight = 15;
+    public static final int HEIGHT = 15;
 
-    public Button(
-            String label,
-            Runnable onClick,
-            Window window,
-            int offsetX,
-            int offsetY,
-            int width,
-            int height) {
+    private final String label;
+    private final Runnable onClick;
+    private final Supplier<Boolean> isActive;
+    private final int offsetX;
+    private final int offsetY;
+    private final int width;
+
+    public Button(String label, Runnable onClick, Supplier<Boolean> isActive, int offsetX, int offsetY, int width) {
         this.label = label;
         this.onClick = onClick;
-        this.window = window;
+        this.isActive = isActive;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.width = width;
-        this.height = height;
     }
 
-    public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        boolean isHovered = checkInside(mouseX, mouseY);
-        int bgColor;
-        if (SkillsClient.moduleManager.getModule(label) == null) {
-            bgColor = isHovered ? 0x80AA5555 : 0x80333333;
-        } else {
-            bgColor =
-                    SkillsClient.moduleManager.getModule(label).isEnabled()
-                            ? 0x8000AA55
-                            : (isHovered ? 0x80444444 : 0x80333333);
-        }
+    public void render(DrawContext context, TextRenderer textRenderer, int winX, int winY, int scroll, int mouseX, int mouseY) {
+        int absX = winX + offsetX;
+        int absY = winY + offsetY - scroll;
 
-        context.fill(
-                window.getX() + offsetX,
-                window.getY() + offsetY - window.getScrollOffset(),
-                window.getX() + offsetX + width,
-                window.getY() + offsetY + height - window.getScrollOffset(),
-                bgColor);
-        context.drawTextWithShadow(
-                textRenderer,
-                label,
-                window.getX() + offsetX + 5,
-                window.getY() + offsetY + 4 - window.getScrollOffset(),
-                Color.WHITE.getRGB());
+        boolean hovered = checkInside(mouseX, mouseY, winX, winY, scroll);
+        int bgColor = (isActive != null && isActive.get())
+                ? 0x8000AA55
+                : (hovered ? 0x80444444 : 0x80333333);
+
+        context.fill(absX, absY, absX + width, absY + HEIGHT, bgColor);
+        context.drawTextWithShadow(textRenderer, label, absX + 5, absY + 4, Color.WHITE.getRGB());
     }
 
-    public Runnable getOnClick() {
-        System.out.println("Button clicked: " + label);
-        return onClick;
+    public boolean checkInside(int x, int y, int winX, int winY, int scroll) {
+        int absX = winX + offsetX;
+        int absY = winY + offsetY - scroll;
+        return x >= absX && x <= absX + width && y >= absY && y <= absY + HEIGHT;
+    }
+
+    public void click() {
+        onClick.run();
     }
 
     public String getLabel() {
         return label;
-    }
-
-    public int getOffsetX() {
-        return offsetX;
-    }
-
-    public int getOffsetY() {
-        return offsetY;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public boolean checkInside(int x, int y) {
-        return x >= window.getX() + this.offsetX
-                && x <= window.getX() + this.offsetX + width
-                && y >= window.getY() + this.offsetY
-                && y <= window.getY() + this.offsetY + height;
     }
 }

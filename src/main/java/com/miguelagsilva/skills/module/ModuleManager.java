@@ -59,6 +59,18 @@ public class ModuleManager {
         return categoryMap;
     }
 
+    public List<AbstractModule> getModuleInCategory(ModuleCategory category) {
+        List<AbstractModule> list = new ArrayList<>();
+
+        for (AbstractModule module : modules.values()) {
+            if (module.getCategory() == category) {
+                list.add(module);
+            }
+        }
+
+        return list;
+    }
+
     public void HandleKeyPress(int key) {
         for (AbstractModule module : modules.values()) {
             if (module.getKeybind() == key) {

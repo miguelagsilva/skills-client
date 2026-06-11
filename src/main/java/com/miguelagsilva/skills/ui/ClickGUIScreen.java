@@ -1,8 +1,5 @@
 package com.miguelagsilva.skills.ui;
 
-import static com.miguelagsilva.skills.ui.Button.buttonHeight;
-import static com.miguelagsilva.skills.ui.Window.titleSectionHeight;
-
 import com.miguelagsilva.skills.SkillsClient;
 import com.miguelagsilva.skills.module.AbstractModule;
 import com.miguelagsilva.skills.module.ModuleCategory;
@@ -17,63 +14,58 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
 import org.joml.Matrix3x2fStack;
-import org.slf4j.Logger;
 
 public class ClickGUIScreen extends Screen {
-    private final Logger logger = SkillsClient.Logger;
+    private static final float TARGET_PHYSICAL_SCALE = 2.0f;
+    private float uiScale;
 
-    public static final float UI_SCALE = 1.0f;
-
-    private Map<ModuleCategory, Window> windows = new HashMap<>();
-    private Map<ModuleCategory, List<AbstractModule>> modulesInCategories =
-            SkillsClient.moduleManager.getModulesInCategories();
-
-    private int frameX = 10;
-    private int frameY = 10;
-
+    private final Map<ModuleCategory, Window> windows = new HashMap<>();
     private double dragOffsetX = 0;
     private double dragOffsetY = 0;
     private Window dragWindow = null;
 
     public ClickGUIScreen() {
         super(Text.literal("ClickGUI"));
+    }
+
+    @Override
+    public void init() {
+        super.init();
+        uiScale = TARGET_PHYSICAL_SCALE / (float) client.getWindow().getScaleFactor();
+        windows.clear();
         registerWindows();
     }
 
     private void registerWindows() {
-        for (AbstractModule module : SkillsClient.moduleManager.getModules().values()) {
-            if (!windows.containsKey(module.getCategory())) {
-                Window newWindow = new Window(module.getCategory().toString(), frameX, frameY);
+        Map<ModuleCategory, List<AbstractModule>> categoryMap = SkillsClient.moduleManager.getModulesInCategories();
+        int virtualWidth = (int) (this.width / uiScale);
+        int curX = 10;
+        int curY = 10;
 
-                windows.put(module.getCategory(), newWindow);
+        for (ModuleCategory category : ModuleCategory.values()) {
+            List<AbstractModule> modules = categoryMap.get(category);
+            if (modules == null || modules.isEmpty()) continue;
+            int windowHeight = Window.TITLE_HEIGHT + modules.size() * Button.HEIGHT;
 
-                int newFrameX = newWindow.getX() + newWindow.getWindowWidth() + 10;
-                if (newFrameX + Window.windowWidth > this.client.getWindow().getScaledWidth()) {
-                    frameX = 100;
-                    frameY += newWindow.getHeight() + 10;
-                } else {
-                    frameX += newWindow.getWindowWidth() + 10;
-                }
-
-                int buttonOffsetX = 0;
-                int buttonOffsetY = titleSectionHeight;
-                for (AbstractModule mod : modulesInCategories.get(module.getCategory())) {
-                    newWindow.addButton(
-                            new Button(
-                                    mod.getName(),
-                                    () -> {
-                                        mod.toggle();
-                                        logger.info("Toggled module: " + mod.getName());
-                                    },
-                                    newWindow,
-                                    buttonOffsetX,
-                                    buttonOffsetY,
-                                    newWindow.getWindowWidth(),
-                                    buttonHeight));
-                    buttonOffsetY += buttonHeight;
-                }
+            if (curX + Window.WIDTH > virtualWidth - 10) {
+                curX = 10;
+                curY += windowHeight + 10;
             }
+
+            Window window = new Window(category.getName(), curX, curY, windowHeight);
+            int buttonOffsetY = Window.TITLE_HEIGHT;
+            for (AbstractModule mod : modules) {
+                window.addButton(new Button(mod.getName(), mod::toggle, mod::isEnabled, 0, buttonOffsetY, Window.WIDTH));
+                buttonOffsetY += Button.HEIGHT;
+            }
+
+            windows.put(category, window);
+            curX += Window.WIDTH + 10;
         }
+    }
+
+    private int scaledMouse(double coord) {
+        return (int) (coord / uiScale);
     }
 
     @Override
@@ -81,77 +73,61 @@ public class ClickGUIScreen extends Screen {
         super.render(context, mouseX, mouseY, delta);
 
         Matrix3x2fStack matrix = context.getMatrices().pushMatrix();
-        context.getMatrices().scale(UI_SCALE, UI_SCALE, matrix);
+        context.getMatrices().scale(uiScale, uiScale, matrix);
 
-        windows.forEach(
-                (category, window) -> {
-                    window.render(context, textRenderer, mouseX, mouseY);
-                });
+        int smx = scaledMouse(mouseX);
+        int smy = scaledMouse(mouseY);
+        windows.values().forEach(w -> w.render(context, textRenderer, smx, smy));
 
         context.getMatrices().popMatrix();
     }
 
     @Override
     public boolean mouseClicked(Click click, boolean doubled) {
-        if (click.button() == 0) {
+        if (click.button() != 0) return super.mouseClicked(click, doubled);
 
-            for (Window window : windows.values()) {
-                if (window.checkInside((int) click.x(), (int) click.y())) {
-                    for (Button button : window.getButtons()) {
-                        if (button.checkInside((int) click.x(), (int) click.y())) {
-                            button.getOnClick().run();
-                            return true;
-                        }
-                    }
-                    // If we clicked the title bar, start dragging
-                    if (click.x() >= window.getX()
-                            && click.x() <= window.getX() + window.getWindowWidth()
-                            && click.y() >= window.getY()
-                            && click.y() <= window.getY() + buttonHeight) {
-                        dragOffsetX = click.x() - window.getX();
-                        dragOffsetY = click.y() - window.getY();
-                        dragWindow = window;
-                        return true;
-                    }
-                }
+        int mx = scaledMouse(click.x());
+        int my = scaledMouse(click.y());
+
+        for (Window window : windows.values()) {
+            if (!window.checkInside(mx, my)) continue;
+            if (window.handleClick(mx, my)) return true;
+            if (window.hitsTitleBar(mx, my)) {
+                dragOffsetX = mx - window.getX();
+                dragOffsetY = my - window.getY();
+                dragWindow = window;
+                return true;
             }
         }
 
-        // Call super if we didn't click any of our custom buttons
         return super.mouseClicked(click, doubled);
     }
 
     @Override
     public boolean mouseDragged(Click click, double offsetX, double offsetY) {
-        logger.info(
-                String.format(
-                        "Dragging with offsetX: %.3f, offsetY: %.3f", dragOffsetX, dragOffsetY));
-        logger.info(String.format("Current frame position: (%d, %d)", frameX, frameY));
         if (click.button() == 0 && dragWindow != null) {
-            this.dragWindow.setX((int) (click.x() - this.dragOffsetX));
-            this.dragWindow.setY((int) (click.y() - this.dragOffsetY));
+            dragWindow.setX((int) (scaledMouse(click.x()) - dragOffsetX));
+            dragWindow.setY((int) (scaledMouse(click.y()) - dragOffsetY));
         }
         return super.mouseDragged(click, offsetX, offsetY);
     }
 
     @Override
     public boolean mouseReleased(Click click) {
-        if (click.button() == 0) {
-            this.dragWindow = null;
-        }
+        if (click.button() == 0) dragWindow = null;
         return super.mouseReleased(click);
     }
 
     @Override
-    public boolean mouseScrolled(
-            double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if (dragWindow == null) {
-            for (Window window : windows.values()) {
-                if (window.checkInside((int) mouseX, (int) mouseY)) {
-                    window.setScrollOffset(
-                            (int) (window.getScrollOffset() - (verticalAmount) * 10));
-                    return true;
-                }
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        if (dragWindow != null) return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+
+        int smx = scaledMouse(mouseX);
+        int smy = scaledMouse(mouseY);
+        for (Window window : windows.values()) {
+            if (window.checkInside(smx, smy)) {
+                window.setScrollOffset((int) (window.getScrollOffset() - verticalAmount * 10));
+                return true;
             }
         }
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);

@@ -4,6 +4,7 @@ import com.google.common.eventbus.EventBus;
 import com.miguelagsilva.skills.command.CommandManager;
 import com.miguelagsilva.skills.module.ModuleManager;
 import net.fabricmc.api.ClientModInitializer;
+import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,7 @@ public class SkillsClient implements ClientModInitializer {
     public static CommandManager commandManager;
     public static Logger Logger = LoggerFactory.getLogger("SkillsClient");
     public static final EventBus EVENT_BUS = new EventBus("SkillsBus");
+    public static final MinecraftClient client = MinecraftClient.getInstance();
 
     @Override
     public void onInitializeClient() {
