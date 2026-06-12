@@ -37,7 +37,8 @@ public class ClickGUIScreen extends Screen {
     }
 
     private void registerWindows() {
-        Map<ModuleCategory, List<AbstractModule>> categoryMap = SkillsClient.moduleManager.getModulesInCategories();
+        Map<ModuleCategory, List<AbstractModule>> categoryMap =
+                SkillsClient.moduleManager.getModulesInCategories();
         int virtualWidth = (int) (this.width / uiScale);
         int curX = 10;
         int curY = 10;
@@ -55,7 +56,14 @@ public class ClickGUIScreen extends Screen {
             Window window = new Window(category.getName(), curX, curY, windowHeight);
             int buttonOffsetY = Window.TITLE_HEIGHT;
             for (AbstractModule mod : modules) {
-                window.addButton(new Button(mod.getName(), mod::toggle, mod::isEnabled, 0, buttonOffsetY, Window.WIDTH));
+                window.addButton(
+                        new Button(
+                                mod.getName(),
+                                mod::toggle,
+                                mod::isEnabled,
+                                0,
+                                buttonOffsetY,
+                                Window.WIDTH));
                 buttonOffsetY += Button.HEIGHT;
             }
 
@@ -119,8 +127,10 @@ public class ClickGUIScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if (dragWindow != null) return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+    public boolean mouseScrolled(
+            double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        if (dragWindow != null)
+            return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
 
         int smx = scaledMouse(mouseX);
         int smy = scaledMouse(mouseY);

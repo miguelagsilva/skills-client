@@ -10,13 +10,16 @@
     "requireAnnotations": true
   },
   "client": [
-    "ClientConnectionMixin",
-    "PlayerMoveC2SPacketMixin",
     "CapeFeatureRendererMixin",
+    "ClientConnectionMixin",
     "EntityRendererMixin",
     "KeyboardMixin",
     "LightMapTextureManagerMixin",
     "MinecraftClientMixin",
+    "PlayerMoveC2SPacketMixin",
     "TitleScreenMixin"
+  ],
+  "mixins": [
+    "BlockMixin"
   ]
 }

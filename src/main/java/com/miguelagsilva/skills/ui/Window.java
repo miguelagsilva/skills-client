@@ -10,6 +10,8 @@ public class Window {
     public static final int WIDTH = 120;
     public int height;
     public static final int TITLE_HEIGHT = 15;
+    private static final int WINDOW_BACKGROUND_COLOR = 0x80860111;
+    private static final int WINDOW_OUTLINE_COLOR = 0x80A20114;
 
     private final String title;
     private final List<Button> buttons = new ArrayList<>();
@@ -29,7 +31,8 @@ public class Window {
     }
 
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        context.fill(x, y, x + WIDTH, y + height, 0x80222222);
+        drawOutlines(context);
+        context.fill(x, y, x + WIDTH, y + TITLE_HEIGHT, WINDOW_BACKGROUND_COLOR);
         context.drawTextWithShadow(textRenderer, title, x + 4, y + 4, Color.WHITE.getRGB());
 
         context.enableScissor(x, y + TITLE_HEIGHT, x + WIDTH, y + height);
@@ -37,6 +40,13 @@ public class Window {
             button.render(context, textRenderer, x, y, scrollOffset, mouseX, mouseY);
         }
         context.disableScissor();
+    }
+
+    private void drawOutlines(DrawContext context) {
+        context.drawHorizontalLine(x, x + WIDTH, y, WINDOW_OUTLINE_COLOR);
+        context.drawHorizontalLine(x, x + WIDTH, y + height, WINDOW_OUTLINE_COLOR);
+        context.drawVerticalLine(x, y, y + height, WINDOW_OUTLINE_COLOR);
+        context.drawVerticalLine(x + WIDTH, y, y + height, WINDOW_OUTLINE_COLOR);
     }
 
     public boolean handleClick(int mouseX, int mouseY) {

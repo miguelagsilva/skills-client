@@ -1,15 +1,11 @@
 package com.miguelagsilva.skills.command;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.miguelagsilva.skills.SkillsClient;
 import com.miguelagsilva.skills.utils.PlayerUtils;
+import java.util.HashMap;
+import java.util.Map;
 import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 public class CommandManager {
     private final Map<String, AbstractCommand> commands = new HashMap<>();

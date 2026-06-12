@@ -7,7 +7,10 @@ import net.minecraft.client.gui.screen.ChatScreen;
 
 public class EnchantModule extends AbstractModule {
     public EnchantModule() {
-        super("Enchant", "Adds client-side enchant to item in hand. (Creative Only)", ModuleCategory.MISC);
+        super(
+                "Enchant",
+                "Adds client-side enchant to item in hand. (Creative Only)",
+                ModuleCategory.MISC);
     }
 
     @Override

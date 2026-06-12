@@ -35,8 +35,11 @@ public class EnchantCommand extends AbstractCommand {
                 ItemStack item = getHeldItem();
                 String id = getArg(parts, 2, "Enchantment ID");
                 RegistryEntry<Enchantment> enchantment = getEnchantment(id);
-                ItemEnchantmentsComponent current = item.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
-                ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(current);
+                ItemEnchantmentsComponent current =
+                        item.getOrDefault(
+                                DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
+                ItemEnchantmentsComponent.Builder builder =
+                        new ItemEnchantmentsComponent.Builder(current);
                 builder.remove(e -> e.equals(enchantment));
                 item.set(DataComponentTypes.ENCHANTMENTS, builder.build());
                 PlayerUtils.sendMessage("Enchantment removed!", Formatting.GREEN);
@@ -47,7 +50,8 @@ public class EnchantCommand extends AbstractCommand {
     }
 
     private String getAction(String[] parts) throws CommandException {
-        if (parts.length < 2) throw new CommandException("Usage: .enchant <add|remove> <id> [level]");
+        if (parts.length < 2)
+            throw new CommandException("Usage: .enchant <add|remove> <id> [level]");
         return parts[1];
     }
 
@@ -76,9 +80,13 @@ public class EnchantCommand extends AbstractCommand {
     }
 
     private RegistryEntry<Enchantment> getEnchantment(String id) throws CommandException {
-        RegistryKey<Enchantment> key = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla(id));
+        RegistryKey<Enchantment> key =
+                RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla(id));
         try {
-            return client.world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(key);
+            return client.world
+                    .getRegistryManager()
+                    .getOrThrow(RegistryKeys.ENCHANTMENT)
+                    .getOrThrow(key);
         } catch (Exception e) {
             throw new CommandException("Unknown enchantment: \"" + id + "\".");
         }

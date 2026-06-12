@@ -1,10 +1,17 @@
 package com.miguelagsilva.skills.mixin;
 
 import com.miguelagsilva.skills.SkillsClient;
+import com.miguelagsilva.skills.module.render.XRayModule;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.textures.GpuTexture;
 import net.minecraft.client.render.LightmapTextureManager;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LightmapTextureManager.class)
 public class LightMapTextureManagerMixin {
